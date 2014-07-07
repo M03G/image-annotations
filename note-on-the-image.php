@@ -40,8 +40,8 @@ function add_scripts() {
 
 function add_style() {
 	if( is_single() || is_page() ) {
-		// wp_register_style( 'note-on-the-image', plugins_url( '/note-on-the-image/js/plugin.min.js' ), array( 'jquery' ) );		
-		// wp_enqueue_script( 'note-on-the-image' );
+		wp_register_style( 'note-on-the-image-css', plugins_url( '/note-on-the-image/css/style.css' ));		
+		wp_enqueue_style( 'note-on-the-image-css' );
 		wp_register_style( 'jqueryuicss', plugins_url( '/note-on-the-image/js/jqueryui/jquery-ui.min.css' ));
 		wp_enqueue_style( 'jqueryuicss' );
 	}
