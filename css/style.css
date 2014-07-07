@@ -8,3 +8,11 @@
 	left: 0px;
 	top: 0px;
 }
+.anotText {
+	z-index: 999;
+	border: 1px solid #000000;
+	background: #ffffff;
+	height: 100px;
+	width: 100%;
+	display: none;
+}

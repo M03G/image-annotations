@@ -49,7 +49,7 @@ function add_style() {
 
 function add_form($content) {
 
-	$form = '<div class="anotText" style="z-index:99;border:1px solid #000000;background:#ffffff;height:100px;display:none;">';
+	$form = '<div class="anotText">';
 
 	if (!is_user_logged_in()) {
 		$form.= '<p class="must-log-in">' . sprintf( __( 'You must be <a href="%s">logged in</a> to post a comment.' ), wp_login_url( apply_filters( 'the_permalink', get_permalink( $post_id ) ) ) ) . '</p>';
