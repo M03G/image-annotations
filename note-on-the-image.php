@@ -7,7 +7,7 @@
  * Plugin Name: Note on the image
  * Plugin URI:  http://m03g.guriny.ru/
  * Description: Добавление комментариев к изображениям, что есть в комментариях :)
- * Version:     0.11
+ * Version:     0.12
  * Author:      M03G
  * Author URI:  http://m03g.guriny.ru/
  * License:     GPL-2.0+
@@ -23,6 +23,7 @@
 // Comment_Image::get_instance();
 error_log("!!!!");
 add_action('wp_enqueue_scripts', 'add_scripts' );
+add_action('wp_enqueue_scripts', 'add_style' );
 add_filter('the_content', 'add_form');
 
 	/**
@@ -30,14 +31,25 @@ add_filter('the_content', 'add_form');
 	 */
 function add_scripts() {
 	if( is_single() || is_page() ) {
-		wp_register_script( 'note-on-the-image', plugins_url( '/note-on-the-image/js/plugin.min.js' ), array( 'jquery' ) );
+		wp_register_script( 'note-on-the-image', plugins_url( '/note-on-the-image/js/plugin.min.js' ), array( 'jquery' ) );		
 		wp_enqueue_script( 'note-on-the-image' );
-	} // end if
-} // end add_scripts
+		wp_register_script( 'jqueryui', plugins_url( '/note-on-the-image/js/jqueryui/jquery-ui.min.js' ), array( 'jquery' ) );
+		wp_enqueue_script( 'jqueryui' );
+	}
+}
+
+function add_style() {
+	if( is_single() || is_page() ) {
+		// wp_register_style( 'note-on-the-image', plugins_url( '/note-on-the-image/js/plugin.min.js' ), array( 'jquery' ) );		
+		// wp_enqueue_script( 'note-on-the-image' );
+		wp_register_style( 'jqueryuicss', plugins_url( '/note-on-the-image/js/jqueryui/jquery-ui.min.css' ));
+		wp_enqueue_style( 'jqueryuicss' );
+	}
+}
 
 function add_form($content) {
 
-	$form = '<div class="anotText" style="z-index:99;border:1px solid #000000;background:#ffffff;height:100px;position:absolute;display:none;">';
+	$form = '<div class="anotText" style="z-index:99;border:1px solid #000000;background:#ffffff;height:100px;display:none;">';
 
 	if (!is_user_logged_in()) {
 		$form.= '<p class="must-log-in">' . sprintf( __( 'You must be <a href="%s">logged in</a> to post a comment.' ), wp_login_url( apply_filters( 'the_permalink', get_permalink( $post_id ) ) ) ) . '</p>';
