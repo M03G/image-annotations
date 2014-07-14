@@ -25,6 +25,7 @@ error_log("!!!!");
 add_action('wp_enqueue_scripts', 'add_scripts' );
 add_action('wp_enqueue_scripts', 'add_style' );
 add_filter('the_content', 'add_form');
+add_action('wp_ajax_add_comm_on_i', 'my_action_callback');
 
 	/**
 	 * Adds the public JavaScript to the single post page.
@@ -47,18 +48,36 @@ function add_style() {
 	}
 }
 
+function my_action_callback() {
+	global $current_user;
+	$newcomm = array();
+
+	$newcomm['user']['id'] = $current_user->ID;
+	$newcomm['user']['name'] = $current_user->user_login;
+	$newcomm['user']['dname'] = $current_user->display_name;
+
+	$newcomm['comm']['text'] = $_POST['text'];
+
+	$comm = serialize($newcomm);
+
+	error_log($comm);
+	
+}
+
 function add_form($content) {
+	if( is_single() || is_page() ) {
 
-	$form = '<div class="anotText">';
+		$form = '<div class="anotText">';
 
-	if (!is_user_logged_in()) {
-		$form.= '<p class="must-log-in">' . sprintf( __( 'You must be <a href="%s">logged in</a> to post a comment.' ), wp_login_url( apply_filters( 'the_permalink', get_permalink( $post_id ) ) ) ) . '</p>';
-	} else {
-		$form.= '<textarea id="commImage" placeholder="Комментарий к изображению."></textarea><button class="cancelComm" type="cancel">cancel</button><button class="okComm">ok</button>';
+		if (!is_user_logged_in()) {
+			$form.= '<p class="must-log-in">' . sprintf( __( 'You must be <a href="%s">logged in</a> to post a comment.' ), wp_login_url( apply_filters( 'the_permalink', get_permalink( $post_id ) ) ) ) . '</p>';
+		} else {
+			$form.= '<textarea id="commImage" placeholder="Комментарий к изображению."></textarea><button class="cancelComm" type="cancel">cancel</button><button class="okComm">ok</button>';
+		}
+
+		$form.= '</div>';
+
+		$content.= $form;
 	}
-
-	$form.= '</div>';
-
-	$content.= $form;
 	return $content;
 }
