@@ -57,8 +57,12 @@ function my_action_callback() {
 	$newcomm['user']['dname'] = $current_user->display_name;
 
 	$newcomm['comm']['text'] = $_POST['text'];
+	$newcomm['comm']['top'] = $_POST['top'];
+	$newcomm['comm']['left'] = $_POST['left'];
+	$newcomm['comm']['side'] = $_POST['side'];
 
 	$comm = serialize($newcomm);
+	add_comment_meta( 5, 'comm_on_im', $comm );
 
 	error_log($comm);
 	
