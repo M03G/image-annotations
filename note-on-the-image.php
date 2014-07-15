@@ -49,6 +49,9 @@ function add_style() {
 }
 
 function my_action_callback() {
+	if (!wp_verify_nonce($_POST['nonce'], "nonceok")) {
+		exit(":(");
+	} 
 	global $current_user;
 	$newcomm = array();
 
@@ -60,9 +63,10 @@ function my_action_callback() {
 	$newcomm['comm']['top'] = $_POST['top'];
 	$newcomm['comm']['left'] = $_POST['left'];
 	$newcomm['comm']['side'] = $_POST['side'];
+	$newcomm['comm']['img'] = substr($_POST['img'], 8) + 0;
 
 	$comm = serialize($newcomm);
-	add_comment_meta( 5, 'comm_on_im', $comm );
+	add_comment_meta($newcomm['comm']['img'], 'comm_on_im', $comm);
 
 	error_log($comm);
 	
@@ -76,7 +80,7 @@ function add_form($content) {
 		if (!is_user_logged_in()) {
 			$form.= '<p class="must-log-in">' . sprintf( __( 'You must be <a href="%s">logged in</a> to post a comment.' ), wp_login_url( apply_filters( 'the_permalink', get_permalink( $post_id ) ) ) ) . '</p>';
 		} else {
-			$form.= '<textarea id="commImage" placeholder="Комментарий к изображению."></textarea><button class="cancelComm" type="cancel">cancel</button><button class="okComm">ok</button>';
+			$form.= '<textarea id="commImage" placeholder="Комментарий к изображению."></textarea><button class="cancelComm" type="cancel">cancel</button><button nonce=' . wp_create_nonce("nonceok") . ' class="okComm">ok</button>';
 		}
 
 		$form.= '</div>';
