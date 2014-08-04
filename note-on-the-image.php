@@ -7,29 +7,41 @@
  * Plugin Name: Note on the image
  * Plugin URI:  http://m03g.guriny.ru/
  * Description: Добавление комментариев к изображениям, что есть в комментариях :)
- * Version:     0.12
+ * Version:     0.26
  * Author:      M03G
  * Author URI:  http://m03g.guriny.ru/
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-// // If this file is called directly, abort.
-// if ( ! defined( 'WPINC' ) ) {
-// 	die;
-// } // end if
-
-// require_once( plugin_dir_path( __FILE__ ) . 'class-comment-image.php' );
-// Comment_Image::get_instance();
-error_log("!!!!");
 add_action('wp_enqueue_scripts', 'add_scripts' );
 add_action('wp_enqueue_scripts', 'add_style' );
 add_filter('the_content', 'add_form');
 add_action('wp_ajax_add_comm_on_i', 'my_action_callback');
 
-	/**
-	 * Adds the public JavaScript to the single post page.
-	 */
+add_filter( 'comments_array', 'display_comment_on_image');
+
+
+function display_comment_on_image($comments) {
+		if( count( $comments ) > 0 ) {
+			foreach( $comments as $comment ) {
+				$new_ul = '';
+				if( true == get_comment_meta( $comment->comment_ID, 'comm_on_im' ) ) {
+					$comm_on_im = get_comment_meta( $comment->comment_ID, 'comm_on_im', false );
+					$new_ul .= '<ul>';
+					foreach ($comm_on_im as $onecomm) {
+						$unsercomm = unserialize($onecomm);
+						$new_ul .= '<li class="coi-one" coi-top=' . $unsercomm['comm']['top'] . ' coi-left=' . $unsercomm['comm']['left'] . ' coi-side=' . $unsercomm['comm']['side'] . '>' . $unsercomm['user']['name'] . ': ' . $unsercomm['comm']['text'] . '</li>';
+						// $new_ul .= '<li>' . var_dump($unsercomm) . '</li>';
+					}
+					$new_ul .= '</ul>';
+					$comment->comment_content .= '<p class="comm_on_in">' . $new_ul . '</p>';
+				}
+			}
+		}
+	return $comments;
+}
+
 function add_scripts() {
 	if( is_single() || is_page() ) {
 		wp_register_script( 'note-on-the-image', plugins_url( '/note-on-the-image/js/plugin.min.js' ), array( 'jquery' ) );		
