@@ -24,18 +24,31 @@ add_filter( 'comments_array', 'display_comment_on_image');
 
 function display_comment_on_image($comments) {
 		if( count( $comments ) > 0 ) {
+			$coi = 678;
 			foreach( $comments as $comment ) {
-				$new_ul = '';
+				$new_ul = $list_div = '';
 				if( true == get_comment_meta( $comment->comment_ID, 'comm_on_im' ) ) {
 					$comm_on_im = get_comment_meta( $comment->comment_ID, 'comm_on_im', false );
 					$new_ul .= '<ul>';
 					foreach ($comm_on_im as $onecomm) {
 						$unsercomm = unserialize($onecomm);
-						$new_ul .= '<li class="coi-one" coi-top=' . $unsercomm['comm']['top'] . ' coi-left=' . $unsercomm['comm']['left'] . ' coi-side=' . $unsercomm['comm']['side'] . '>' . $unsercomm['user']['name'] . ': ' . $unsercomm['comm']['text'] . '</li>';
+						$new_ul .= '<li coi-numb="' . $coi . '" class="coi-one">' . $unsercomm['user']['name'] . ': ' . $unsercomm['comm']['text'] . '</li>';
+						// $new_ul .= '<li coi-numb="' . $coi . '" class="coi-one" coi-top=' . $unsercomm['comm']['top'] . ' coi-left=' . $unsercomm['comm']['left'] . ' coi-side=' . $unsercomm['comm']['side'] . '>' . $unsercomm['user']['name'] . ': ' . $unsercomm['comm']['text'] . '</li>';
+						$list_div .= '<div class="coi-area" id="coi-numb-' . $coi . '" style="top:' . $unsercomm['comm']['top'] . 'px;left:' . $unsercomm['comm']['left'] . 'px;width:' . $unsercomm['comm']['side'] . 'px;height:' . $unsercomm['comm']['side'] . 'px;"></div>';
 						// $new_ul .= '<li>' . var_dump($unsercomm) . '</li>';
+						$coi++;
 					}
 					$new_ul .= '</ul>';
-					$comment->comment_content .= '<p class="comm_on_in">' . $new_ul . '</p>';
+					error_log($comment->comment_content);
+
+					$array_cont = explode('<p class="comment-image">', $comment->comment_content);
+					$comment->comment_content = $array_cont[0] . '<div class="kostyl"><p class="comment-image">' . $array_cont[1] . $list_div . '</div>';
+
+					$comment->comment_content .= '<div class="comm_on_in">';
+					$comment->comment_content .= $new_ul;
+					$comment->comment_content .= '</div>';
+					// $comment->comment_content .= $list_div;
+					error_log($comment->comment_content);
 				}
 			}
 		}
