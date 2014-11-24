@@ -1,16 +1,16 @@
-.kostyl {
+.ia-main {
 	position: relative;
 	padding: 0;
 	margin-top: 10px;
 }
 
-.kostyl p, .kostyl img, p.comment-image, p.comment-image img {
+.ia-main p, .ia-main img, p.comment-image, p.comment-image img {
 	margin: 0;
 	padding: 0;
 	line-height: 0;
 }
 
-.coi-area {
+.ia-area {
 	position: absolute;
 	z-index: 998;
 	border: 1px solid #000;
@@ -27,6 +27,11 @@
 	top: 0px;
 	background: rgba(245,245,245,0.2);
 	box-shadow: 0 0 6px rgba(0,0,0,0.8);
+	-webkit-transition: none;
+	-moz-transition: none;
+	-ms-transition: none;
+	-o-transition: none;
+	transition: none;
 }
 
 .anotText {
@@ -48,15 +53,15 @@
 	width: 98%;
 }
 
-.kostyl:hover .area-vis-switch,
-.kostyl:hover .comm-vis-switch { 
+.ia-main:hover .ia-area-vis-switch,
+.ia-main:hover .ia-annotations-vis-switch { 
 	visibility: visible;
 	opacity: 1;
 	transition-delay: 0s;
 }
 
-.area-vis-switch, .comm-vis-switch {
-	background: rgba(255,255,255,0.8);
+.ia-area-vis-switch, .ia-annotations-vis-switch {
+	background: rgba(255,255,255,0.9);
 	background-repeat: no-repeat;
 	position: absolute;
 	right: 5px;
@@ -71,57 +76,58 @@
 	z-index: 1111;
 }
 
-.area-vis-switch { background-image: url('../img/icon-eye.png'); top: 5px; }
-.comm-vis-switch { background-image: url('../img/icon-list.png'); bottom: 5px; }
+.ia-area-vis-switch { background-image: url('../img/icon-eye.png'); top: 5px; }
+.ia-annotations-vis-switch { background-image: url('../img/icon-list.png'); bottom: 5px; }
 
 .hide, .show:hover { background-position: -1px 0px; }
 .hide:hover, .show { background-position: -27px 0px; }
 
-.comm_on_in ul {
+.ia-annotations ul {
 	list-style: none;
 	margin: 0 0 20px 0;
 }
 
-.comm_on_in ul li:nth-child(odd) {
+.ia-annotations ul li:nth-child(odd) {
 	background: rgba(255,255,255,0.15);
 }
 
-.comm_on_in ul li {
+.ia-annotations ul li {
 	padding: 0px 8px 8px 8px;
 	border-bottom: 1px solid rgba(0,0,0,0.1);
 	margin: 0;
+	position: relative;
 }
 
-.comm_on_in ul li span.date {
+.ia-annotations ul li span.ia-date {
 	font-size: 0.75em;
 	font-weight: 500;
 	color: #444;
 }
 
-.comm_on_in ul li span.author {
+.ia-annotations ul li span.ia-author {
 	font-size: 0.75em;
 	margin-left: 7px;
 	font-weight: 700;
 }
 
-.comm_on_in ul li span.text {
+.ia-annotations ul li span.ia-text {
 	display: block;
 	font-size: 0.9em;
 	line-height: 1em;
 }
 
-.coi-area {
+.ia-area {
 	border: 1px solid #000;
 	box-shadow: 0 0 1px 1px #fff;
 	background: rgba(0,0,0,0.03);
 	border-radius: 3px;
 }
 
-.coi-text {
+.ia-annotation {
 	transition: background 0.15s ease-out;
 }
 
-.coi-area.hovered {
+.ia-area.hovered {
 	background: rgba(0,0,0,0.2);
 	background: -moz-radial-gradient(center, ellipse cover, rgba(255,255,255,0.2) 0%, rgba(0,0,0,0.2) 100%);
 	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(255,255,255,0.2)), color-stop(100%,rgba(0,0,0,0.2)));
@@ -131,8 +137,37 @@
 	background: radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%,rgba(0,0,0,0.2) 100%);
 }
 
-.comm_on_in ul li.coi-text.hovered {
+.ia-annotations ul li.ia-annotation.hovered {
 	background: rgba(240,240,240,0.8);
+}
+
+.ia-annotation:hover .ia-del {
+	visibility: visible;
+	opacity: 1;
+	transition-delay: 0s;
+}
+
+.ia-del {
+	background: rgba(255,255,255,0.6);
+	background-repeat: no-repeat;
+	background-image: url('../img/icon-delete.png');
+	background-position: -1px 0px;
+	position: absolute;
+	top: 6px;
+	right: 4px;
+	width: 16px;
+	height: 16px;
+	padding: 5px;
+	border-radius: 13px;
+	cursor: pointer;
+	visibility: hidden;
+	opacity: 0;
+	transition: visibility 0s ease-out 0.15s, opacity 0.15s ease-out;
+	z-index: 1111;
+}
+
+.ia-del:hover {
+	background-position: -27px 0px;
 }
 
 button {
@@ -143,7 +178,7 @@ button {
 	transition: all 0.3s ease-in-out;
 }
 
-button.okComm {
+button.ia-ok {
 	background: #555;
 	font-weight: bold;
 	color: #fff;
@@ -151,18 +186,18 @@ button.okComm {
 	float: left;
 }
 
-button.cancelComm {
+button.ia-cancel {
 	background: transparent;
 	border: 1px solid #ccc;
 	color: #666;
 }
 
-button.cancelComm:hover {
+button.ia-cancel:hover {
 	background: #eee;
 	border-color: #ccc;
 }
 
-button.okComm:hover {
+button.ia-ok:hover {
 	background: #888;
 	border-color: #ccc;
 }
