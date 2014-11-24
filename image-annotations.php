@@ -5,9 +5,9 @@
  *
  * @wordpress-plugin
  * Plugin Name: Image Annotations
- * Plugin URI:  http://m03g.guriny.ru/
- * Description: Добавление комментариев к изображениям, что есть в комментариях :)
- * Version:     0.78
+ * Plugin URI:  http://m03g.guriny.ru/image-annotations/
+ * Description: Image Annotations plugin lets readers to leave annotations to the selected area of the image in comments. Important: for now the plugin works only with Comment Images plugin (by Tom McFarlin).
+ * Version:     1.00
  * Author:      M03G
  * Author URI:  http://m03g.guriny.ru/
  * License:     GPL-2.0+
@@ -55,18 +55,18 @@ function display_annotation($comments) {
 
 function add_scripts() {
 	if( is_single() || is_page() ) {
-		wp_register_script( 'image-annotation', plugins_url( '/image-annotation/js/plugin.min.js' ), array( 'jquery' ) );		
+		wp_register_script( 'image-annotation', plugins_url( '/image-annotations/js/plugin.min.js' ), array( 'jquery' ) );		
 		wp_enqueue_script( 'image-annotation' );
-		wp_register_script( 'jqueryui', plugins_url( '/image-annotation/js/jqueryui/jquery-ui.min.js' ), array( 'jquery' ) );
+		wp_register_script( 'jqueryui', plugins_url( '/image-annotations/js/jqueryui/jquery-ui.min.js' ), array( 'jquery' ) );
 		wp_enqueue_script( 'jqueryui' );
 	}
 }
 
 function add_style() {
 	if( is_single() || is_page() ) {
-		wp_register_style( 'image-annotation-css', plugins_url( '/image-annotation/css/style.css' ));		
+		wp_register_style( 'image-annotation-css', plugins_url( '/image-annotations/css/style.css' ));		
 		wp_enqueue_style( 'image-annotation-css');
-		wp_register_style( 'jqueryuicss', plugins_url( '/image-annotation/js/jqueryui/jquery-ui.min.css' ));
+		wp_register_style( 'jqueryuicss', plugins_url( '/image-annotations/js/jqueryui/jquery-ui.min.css' ));
 		wp_enqueue_style( 'jqueryuicss' );
 	}
 }
