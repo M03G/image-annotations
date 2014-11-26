@@ -55,19 +55,20 @@ function display_annotation($comments) {
 
 function add_scripts() {
 	if( is_single() || is_page() ) {
-		wp_register_script( 'image-annotation', plugins_url( '/image-annotations/js/plugin.min.js' ), array( 'jquery' ) );		
-		wp_enqueue_script( 'image-annotation' );
-		wp_register_script( 'jqueryui', plugins_url( '/image-annotations/js/jqueryui/jquery-ui.min.js' ), array( 'jquery' ) );
-		wp_enqueue_script( 'jqueryui' );
+		wp_enqueue_script('jquery-ui-core', array( 'jquery'));
+		wp_enqueue_script('jquery-ui-draggable', array('jquery','jquery-ui-core'));
+		wp_enqueue_script('jquery-ui-resizable', array('jquery','jquery-ui-core'));
+		wp_register_script('image-annotation', plugins_url( '/js/plugin.min.js', __FILE__ ), array('jquery','jquery-ui-core'));		
+		wp_enqueue_script('image-annotation' );
 	}
 }
 
 function add_style() {
 	if( is_single() || is_page() ) {
-		wp_register_style( 'image-annotation-css', plugins_url( '/image-annotations/css/style.css' ));		
-		wp_enqueue_style( 'image-annotation-css');
-		wp_register_style( 'jqueryuicss', plugins_url( '/image-annotations/js/jqueryui/jquery-ui.min.css' ));
-		wp_enqueue_style( 'jqueryuicss' );
+		wp_register_style('image-annotation-css', plugins_url('/css/style.css', __FILE__));		
+		wp_enqueue_style('image-annotation-css');
+		wp_register_style('jqueryuicss', plugins_url('/css/jquery-ui.min.css', __FILE__));
+		wp_enqueue_style('jqueryuicss');
 	}
 }
 

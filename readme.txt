@@ -1,4 +1,4 @@
-=== Image Annotations (for Comment Images) ===
+=== Image Annotations ===
 Contributors: M03Gen
 Donate link: http://m03g.guriny.ru/image-annotations/
 Tags: images, note, annotations, comments
