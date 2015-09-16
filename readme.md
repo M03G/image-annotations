@@ -3,8 +3,8 @@ Contributors: M03Gen
 Donate link: http://m03g.guriny.ru/image-annotations/
 Tags: images, note, annotations, comments
 Requires at least: 3.8.1
-Tested up to: 4.1
-Stable tag: 1.03
+Tested up to: 4.3.1
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -40,6 +40,28 @@ Important: for now the plugin works only with [Comment Images](https://wordpress
 
 == Changelog ==
 
+= 1.1 =
+
+* Many style changes.
+* Major bug fixes.
+
+* Добавлена возможность отвечать на оставленные аннотации
+* При клике на выделение проиходит переход к аннотации
+* Изменены стили
+* Исправлены ошибки
+
+= 1.04 =
+
+* Added ability to view comments when hovering the selection area.
+* Icons are now a font.
+* Some style changes.
+* Minor bug fixes.
+
+* Добавлена возможность просмотра комментария при наведение на выделение
+* Изображения иконок заменены на шрифт
+* Изменены стили
+* Исправлены ошибки
+
 = 1.03 =
 
 * Added the ability to edit comments (15 minutes after publication)
@@ -54,7 +76,7 @@ Important: for now the plugin works only with [Comment Images](https://wordpress
 
 = 1.02 =
 
-* Bug fix
+* Bug fixes
 
 * Исправлены ошибки. Теперь плагин должен корректно работать с любой темой WordPress и при любом масштабе. Старые комментарии придётся либо удалить, либо обновить (возможность появится позже)
 
